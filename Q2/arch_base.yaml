@@ -1,0 +1,42 @@
+architecture:
+  version: 0.2
+  
+  subtree:
+  - name: System
+    
+    local:
+    - name: MainMemory
+      class: DRAM
+      attributes:
+        width: $dram_width$
+
+
+    subtree:
+    - name: Chip
+      attributes:
+        technology: 40nm
+
+      local:
+      - name: GlobalBuffer # 256KB buffer
+        class: SRAM
+        attributes:
+          depth: $sram_depth$
+          width: $sram_width$
+          block-size: 1
+          word-bits: 8
+        
+      subtree:
+      - name: PE
+      
+        local:
+        - name: RegisterFile
+          class: regfile
+          attributes:
+            depth: $regfile_depth$
+            width: $regfile_width$
+            block-size: 1
+            word-bits: 8
+        - name: MACC
+          class: intmac
+          attributes:
+            datawidth: $datawidth$
